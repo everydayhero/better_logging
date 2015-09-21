@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "json_log_format", "~> 0.0.1"
   spec.add_dependency "lograge"
   spec.add_dependency "rails"
   spec.add_dependency "rails_12factor"

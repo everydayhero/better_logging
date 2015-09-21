@@ -1,5 +1,6 @@
 require "rails/railtie"
 require "lograge"
+require "json_log_format"
 
 module BetterLogging
   class Railtie < Rails::Railtie
@@ -12,7 +13,7 @@ module BetterLogging
       config.log_level = ENV.fetch("LOG_LEVEL") { "debug" }.to_sym
       config.action_controller.log_warning_on_csrf_failure = false
       config.lograge.enabled = true
-      config.lograge.formatter = ->(payload) { JSON.dump(payload) }
+      config.lograge.formatter = JSONLogFormat
       config.lograge.custom_options = ->(event) do
         {request_id: event.payload[:request_id]}
       end
