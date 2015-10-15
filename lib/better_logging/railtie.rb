@@ -6,6 +6,7 @@ module BetterLogging
   class Railtie < Rails::Railtie
     config.better_logging = ActiveSupport::OrderedOptions.new
     config.better_logging.enabled = ENV["BETTER_LOGGING"].present?
+    config.better_logging.ignore_controllers = []
     if config.better_logging.enabled
       require "rails_12factor"
 
@@ -16,6 +17,10 @@ module BetterLogging
       config.lograge.formatter = JSONLogFormat
       config.lograge.custom_options = ->(event) do
         {request_id: event.payload[:request_id]}
+      end
+      Lograge.ignore ->(event) do
+        controller = event.payload[:params]["controller"]
+        Array(config.better_logging.ignore_controllers).include?(controller)
       end
     end
 
