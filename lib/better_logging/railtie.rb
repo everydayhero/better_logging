@@ -12,7 +12,6 @@ module BetterLogging
 
       config.lograge.enabled = true
       config.log_level = ENV.fetch("LOG_LEVEL") { "debug" }.to_sym
-      config.action_controller.log_warning_on_csrf_failure = false
       config.lograge.enabled = true
       config.lograge.formatter = JSONLogFormat
       config.lograge.custom_options = ->(event) do
