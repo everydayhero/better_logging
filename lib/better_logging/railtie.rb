@@ -8,8 +8,6 @@ module BetterLogging
     config.better_logging.enabled = ENV["BETTER_LOGGING"].present?
     config.better_logging.ignore_controllers = []
     if config.better_logging.enabled
-      require "rails_12factor"
-
       config.lograge.enabled = true
       config.log_level = ENV.fetch("LOG_LEVEL") { "debug" }.to_sym
       config.action_controller.log_warning_on_csrf_failure = false
